@@ -1,0 +1,27 @@
+﻿@model warranty_management.Models.Specie
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+<div class="container" style="margin-top: 25px">
+    <h3>
+        <span class="glyphicon glyphicon-pencil"></span>Thêm nhà sản xuất mới
+    </h3>
+    @using (Html.BeginForm("Create", "Species", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.ValidationSummary(true)
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            @Html.LabelFor(m => m.SpecieName, new { @class = "col-lg-2 control-label" })
+            <div class="col-lg-5">
+                @Html.TextBoxFor(m => m.SpecieName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.SpecieName)
+            </div>
+        </div>
+        <hr/>
+        <div class="col-lg-2">
+			<button type="submit" class="btn btn-success btn-sm">Lưu</button>
+		</div>
+        
+    }
+</div>

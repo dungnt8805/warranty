@@ -1,0 +1,48 @@
+﻿@model warranty_management.Models.Order
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+<div class="container">
+    <h3 style="text-align: center">
+        <span class="glyphicon glyphicon-shopping-cart"></span>Hóa đơn mua hàng
+    </h3>
+    @using (Html.BeginForm("Create", "Orders", new { returnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.ValidationSummary(true)
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-md-9 col-sm-5">
+                <h4 style="text-align: center">Thông tin khách hàng</h4>
+                <div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Customer.CustomerName, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.Customer.CustomerName, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Customer.Address, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.Customer.Address, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Customer.Phone, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.Customer.Phone, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-9">
+                <div class="control-group" align="right">
+                    <div class="controls">
+                        <button type="submit" class="btn btn-success">Tiếp tục</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

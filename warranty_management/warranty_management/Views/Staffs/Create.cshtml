@@ -1,0 +1,25 @@
+﻿@{
+    
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+<div class="col-md-6 col-md-offset-3 col-xs-12 col-xs-offset-0 centered-page">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h1 class="panel-title big">Tạo tài khoản mới</h1>
+            <div class="panel-body">
+                @using (Html.BeginForm("Create", "Staffs", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-vertical" }))
+                {
+                    @Html.ValidationSummary(true)
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <label class="control-label">Staff Name</label>
+                        <div class="controls">
+                            @Html.TextBoxFor()
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

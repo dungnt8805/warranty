@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+<div class="container">
+    <h3 style="text-align: center"><span class="glyphicon glyphicon-briefcase"></span>Kiểm tra sản phẩm</h3>
+    <div class="col-md-9 col-sm-12">
+        <div class="row">
+            @using (Html.BeginForm("Check", "Warranties", new { ReturlUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <div class="form-group">
+                    <label class="control-label col-sm-4">Số Serial</label>
+                    <div class="col-sm-8">
+                        <input type="text" name="Serial" class="form-control" />
+                    </div>
+                </div>
+                <div class="control-group" align="right">
+                    <div class="controls">
+                        <button type="submit" class="btn btn-success">Tiếp tục</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

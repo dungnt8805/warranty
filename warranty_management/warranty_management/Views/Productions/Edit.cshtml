@@ -1,0 +1,53 @@
+﻿@model warranty_management.Models.Production
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+<h3>
+    <span class="glyphicon glyphicon-pencil"></span>Sửa thông tin sản phẩm
+</h3>
+
+@using (Html.BeginForm("Edit", "Productions", new { returnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.ValidationSummary(true);
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.LabelFor(m => m.ProductionName, new { @class = "control-label col-lg-2" })
+        <div class="col-lg-5">
+            @Html.TextBoxFor(m => m.ProductionName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.ProductionName)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ManufacturerId, new { @class = "control-label col-lg-2" })
+        <div class="col-lg-5">
+            @Html.DropDownList("ManufacturerId", (IEnumerable<SelectListItem>)ViewBag.ManufacturerId, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.ManufacturerId)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.SpecieId, new { @class = "control-label col-lg-2" })
+        <div class="col-lg-5">
+            @Html.DropDownList("SpecieId", (IEnumerable<SelectListItem>)ViewBag.SpecieId, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.SpecieId)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description, new { @class = "control-label col-lg-2" })
+        <div class="col-lg-5">
+            @Html.TextAreaFor(m => m.Description, new { @id = "textareabox", @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Description)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.WarrantyTime, new { @class = "control-label col-lg-2" })
+        <div class="col-lg-5">
+            @Html.TextBoxFor(m => m.WarrantyTime, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.WarrantyTime)
+        </div>
+    </div>
+    <hr />
+    <div class="col-lg-2">
+        <button type="submit" class="btn btn-success btn-sm">Lưu</button>
+    </div>
+}

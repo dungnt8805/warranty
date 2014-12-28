@@ -1,0 +1,88 @@
+﻿@model warranty_management.Models.Warranty
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+@{
+    warranty_management.Models.OrderDetail orderDetail = ViewBag.OrderDetail;
+}
+<div class="container">
+    <h3 style="text-align: center"><span class="glyphicon glyphicon-barcode"></span>Thông tin bảo hành</h3>
+    <div class="row">
+        <table class="table table-bordered table-responsive">
+            <tr>
+                <td class="span6">Sản phẩm
+                </td>
+                <td>@orderDetail.Production.Name</td>
+            </tr>
+            <tr>
+                <td>Ngày mua</td>
+                <td>@orderDetail.Order.OrderDate.ToString("dd/MM/yyyy")</td>
+            </tr>
+            <tr>
+                <td>Chế độ bảo hành</td>
+                <td>
+                    @{var message = "";}
+                    @if (orderDetail.Production.WarrantyType == "new")
+                    {
+                        message = "Đổi mới";
+                    }
+                    else
+                    {
+                        message = "Sửa chữa";
+                    }
+                    @message trong vòng @orderDetail.Production.WarrantyTime năm
+                </td>
+            </tr>
+            <tr>
+                <td>Thời hạn bảo hành</td>
+                <td>@orderDetail.Order.OrderDate.AddYears(orderDetail.Production.WarrantyTime).ToString("dd/MM/yyyy")</td>
+            </tr>
+        </table>
+        @if (DateTime.Compare(@orderDetail.Order.OrderDate.AddYears(orderDetail.Production.WarrantyTime), DateTime.Now) >= 0)
+        {
+            using (Html.BeginForm("Create", "Warranties", new { returnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+            <div class="form-group">
+                @Html.LabelFor(m => m.Customer.CustomerName, new { @class = "control-label col-sm-4" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.Customer.CustomerName, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Customer.Address, new { @class = "control-label col-sm-4" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.Customer.Address, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Customer.Phone, new { @class = "control-label col-sm-4" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.Customer.Phone, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Reason, new { @class = "control-label col-sm-4" })
+                <div class="col-sm-8">
+                    @Html.TextAreaFor(m => m.Reason, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ReturnDate, new { @class = "control-label col-sm-4" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.ReturnDate, new { type = "date", value = "@string.Format({0:yyyy-MM-dd}", @class = "form-control" })
+                </div>
+                @Html.ValidationMessageFor(m => m.ReturnDate)
+            </div>
+            <div class="control-group" align="right">
+                <div class="controls">
+                    <button type="submit" class="btn btn-success">Tiếp tục</button>
+                </div>
+            </div>
+            }
+        }
+    </div>
+</div>
+

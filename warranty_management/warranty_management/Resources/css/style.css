@@ -1,0 +1,21 @@
+﻿body {
+    font-weight: 400;
+    height: 100%;
+    padding-bottom: 20px;
+    padding-top: 60px;
+    transition: all 0.2s ease-in-out 0s;
+    width: 100%;
+}
+body {
+    background-color: #eaeaea;
+    color: #4d4d4d;
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857;
+}
+#wrap {
+    height: auto !important;
+    margin: 0 auto -190px;
+    min-height: 100%;
+    padding: 0 0 190px;
+}

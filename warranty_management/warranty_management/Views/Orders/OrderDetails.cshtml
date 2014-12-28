@@ -1,0 +1,96 @@
+﻿@model warranty_management.Models.OrderDetail
+@{
+    ViewBag.Title = "OrderDetails";
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+<div class="container">
+    <h3 style="text-align: center"><span class="glyphicon glyphicon-camera"></span>Chọn sản phẩm</h3>
+    @using (Html.BeginForm("OrderDetails", "Orders", new { returnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        <div class="row">
+            @{
+        //warranty_management.Models.Order order = ViewBag.Order;
+            }
+            <div class="col-md-7 col-sm-4">
+                <h4 style="text-align: center">Thông tin bảo hành</h4>
+                <div class="form-group">
+                    <label class="col-sm-4">Tên khách hàng</label>
+                    <div class="col-sm-5">
+                        @ViewBag.Order.Customer.CustomerName
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4">Địa chỉ</label>
+                    <div class="col-sm-5">
+                        @ViewBag.Order.Customer.Address
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4">Điện thoại</label>
+                    <div class="col-sm-5">
+                        @ViewBag.Order.Customer.Phone
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4">Ngày mua</label>
+                    <div class="col-sm-5">
+                        @ViewBag.Order.OrderDate
+                    </div>
+                </div>
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        <th class="span2">Sản phẩm</th>
+                        <th>Số Serial</th>
+                        <th>Thời gian bảo hành</th>
+                        <th>Kiểu bảo hành</th>
+                    </thead>
+                    <tbody>
+                        @foreach (var od in ViewBag.OrderDetails)
+                        {
+                            var message = "";
+                            <tr>
+                                <td>@od.Production.Name</td>
+                                <td>@od.Serial</td>
+                                <td>@od.Production.WarrantyTime năm</td>
+                                <td>
+                                    @if(od.Production.WarrantyType == "new")
+                                    {
+                                        message = "Đổi mới";
+                                    }else
+                                    {
+                                        message = "Sửa chữa";
+                                    }
+                                    @message
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+            <div class="col-md-4 col-sm-5">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ProductionId, new { @class = "control-label col-sm-4" })
+                    <div class="col-sm-8">
+                        @Html.DropDownList("ProductionId", (IEnumerable<SelectListItem>)ViewBag.ProductionId, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Serial, new { @class = "control-label col-sm-4" })
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(m => m.Serial, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="control-group" align="right">
+                    <div class="controls">
+                        
+                        <button type="submit" class="btn btn-success">Tiếp tục</button>
+                        @Html.ActionLink("Kết thúc","Complete","Orders",new{id = @ViewBag.Order.Id},new{@class="btn btn-success"})
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+</div>
